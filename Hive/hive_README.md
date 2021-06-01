@@ -1,4 +1,13 @@
 # Hive
+- Não é SGBD
+   - SQL para map reduce 
+   - data warehouse em cima do hadoop (hdfs)
+
+Não trabalha em tempo real 
+
+### Particionamento
+Recursos de particionamento 
+
 
 Não existe um formato Hive
 
@@ -127,7 +136,55 @@ Exemplo
     location '/user/cloudera/data/client’;
 
     - Tabela interna não tem o location
-
+ 
 ### Acessar o Cliente Hive
+
+docker exec -it hive-server bash
+
+beeline --help 
+
+beeline -u jdbc:hive2://localhost:10000 username password
+
+show databases;
+### Exercícios
+
+1. Enviar o arquivo local “/input/exercises-data/populacaoLA/populacaoLA.csv” para o diretório no HDFS “/user/aluno/<nome>/data/populacao”
+
+hdfs dfs -mkdir /user/aluno/isaque/data/populacao
+hdfs dfs -put /input/exercises-data/populacaoLA/populacaoLA.csv /user/aluno/isaque/data/populacao
+hdfs dfs -ls /user/aluno/isaque/data/populacao
+
+hdfs dfs -cat /user/aluno/isaque/data/populacao/populacaoLA.csv | head -n 3
+
+2. Listar os bancos de dados no Hive
+show databases;
+
+3. Criar o banco de dados <nome>
+create database isaque; 
+4. Criar a Tabela Hive no BD <nome>
+use isaque; 
+create table pop(zip_code int, total_population int, median_age float, total_males int, total_females int, total_households int, average_household_size float) row format delimited fields terminated by ',' lines terminated by '\n' stored as textfile tblproperties("skip.header.line.count"="1");  
+
+desc formatted pop;
+
+Tabela interna: pop
+Campos:
+zip_code - int
+total_population - int
+median_age - float
+total_males - int
+total_females - int
+total_households - int
+average_household_size - float
+Propriedades
+Delimitadores: Campo ‘,’ | Linha ‘\n’
+Sem Partição
+Tipo do arquivo: Texto
+tblproperties("skip.header.line.count"="1")’
+
+5. Visualizar a descrição da tabela pop
+
+desc formatted pop;
+
 - Repositório bigdata
     - https://github.com/rodrigo-reboucas/docker-bigdata
