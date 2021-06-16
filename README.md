@@ -5,7 +5,7 @@ Comandos Docker
 - docker-compose pull -> baixar imagens
 - docker image ls -> visualizar imagens baixada
 - docker-compose up -d ->executar os containers 
-- docker conteiner ls -> listar os containers
+- docker container ls -> listar os containers
 
 Inicar
 - docker-compose up -d -> -d iniciar os serviços em backgroud - executar só a primeira vez
